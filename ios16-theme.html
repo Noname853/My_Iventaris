@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory TKJ - iOS 16 Theme</title>
+    <link rel="stylesheet" href="ios16-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span class="time">09:41</span>
+        </div>
+        <div class="status-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <div class="battery">
+                <div class="battery-level"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="nav-left">
+                <button class="nav-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="nav-center">
+                <h1>Inventory TKJ</h1>
+            </div>
+            <div class="nav-right">
+                <button class="nav-btn">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Cari barang...">
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Barang</h3>
+                    <p class="stat-number">1,254</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Stok Rendah</h3>
+                    <p class="stat-number">23</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Cards -->
+        <div class="action-section">
+            <h2>Aksi Cepat</h2>
+            <div class="action-grid">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h3>Tambah Barang</h3>
+                    <p>Tambahkan item baru ke inventory</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>Scan QR Code</h3>
+                    <p>Scan kode untuk update data</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Laporan</h3>
+                    <p>Lihat statistik dan laporan</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Pengaturan</h3>
+                    <p>Kelola sistem inventory</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="activity-section">
+            <h2>Aktivitas Terbaru</h2>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>Laptop ASUS ROG ditambahkan</h4>
+                        <p>2 jam yang lalu</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>Mouse Logitech diperbarui</h4>
+                        <p>4 jam yang lalu</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>Stok Keyboard Mechanical rendah</h4>
+                        <p>1 hari yang lalu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Beranda</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-search"></i>
+            <span>Cari</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-plus"></i>
+            <span>Tambah</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Laporan</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profil</span>
+        </div>
+    </nav>
+
+    <script src="ios16-script.js"></script>
+</body>
+</html>
