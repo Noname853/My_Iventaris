@@ -122,7 +122,7 @@ class PeminjamanController extends Controller
             'keperluan' => 'required|string|max:500',
             'catatan' => 'nullable|string|max:1000',
         ], [
-            'tanggal_pinjam.after_or_equal' => 'Sesuaikan waktu dan Tanggal Anda(user)',
+            'tanggal_pinjam.after_or_equal' => 'Sesuaikan Tanggal dan Waktu Hari ini',
         ]);
 
         DB::beginTransaction();
