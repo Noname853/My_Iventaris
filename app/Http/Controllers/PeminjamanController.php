@@ -117,7 +117,7 @@ class PeminjamanController extends Controller
             'items.*.alat_id' => 'required|exists:alats,id',
             'items.*.jumlah' => 'required|integer|min:1',
             'items.*.keterangan' => 'nullable|string|max:255',
-            'tanggal_pinjam' => 'required|date_format:Y-m-d\TH:i|after_or_equal:today',
+            'tanggal_pinjam' => 'required|date_format:Y-m-d\TH:i|after_or_equal:now',
             'tanggal_selesai' => 'required|date_format:Y-m-d\TH:i|after:tanggal_pinjam',
             'keperluan' => 'required|string|max:500',
             'catatan' => 'nullable|string|max:1000',
