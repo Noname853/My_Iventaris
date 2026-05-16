@@ -66,14 +66,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <form action="{{ route('kelompok.tambah') }}" method="POST" class="d-flex gap-2 align-items-end">
+                    <form action="{{ route('kelompok.tambah') }}" method="POST">
                         @csrf
-                        <div class="flex-grow-1">
+                        <div class="mb-2">
                             <label class="form-label fw-semibold mb-1">Tambah Anggota Baru</label>
                             <input type="text" name="name" class="ios-form-control" placeholder="Nama siswa baru" required>
                         </div>
                         <div>
-                            <button type="submit" class="ios-btn ios-btn-primary">
+                            <button type="submit" class="ios-btn ios-btn-primary w-100">
                                 <i class="bi bi-person-plus me-1"></i> Tambah Anggota
                             </button>
                         </div>
