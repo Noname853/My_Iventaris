@@ -121,6 +121,8 @@ class PeminjamanController extends Controller
             'tanggal_selesai' => 'required|date_format:Y-m-d\TH:i|after:tanggal_pinjam',
             'keperluan' => 'required|string|max:500',
             'catatan' => 'nullable|string|max:1000',
+        ], [
+            'tanggal_pinjam.after_or_equal' => 'Sesuaikan waktu dan Tanggal Anda(user)',
         ]);
 
         DB::beginTransaction();
