@@ -51,22 +51,16 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="tanggal_pinjam" class="form-label">Waktu Mulai <span class="text-danger">*</span></label>
-                                <input type="datetime-local" class="form-control @error('tanggal_pinjam') is-invalid @enderror" 
+                                <input type="datetime-local" class="form-control" 
                                        id="tanggal_pinjam" name="tanggal_pinjam" value="{{ old('tanggal_pinjam', date('Y-m-d\TH:i')) }}" 
                                        min="{{ date('Y-m-d\TH:i') }}" required>
                                 <div class="form-text">Waktu mulai peminjaman</div>
-                                @error('tanggal_pinjam')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-md-6">
                                 <label for="tanggal_selesai" class="form-label">Waktu Selesai <span class="text-danger">*</span></label>
-                                <input type="datetime-local" class="form-control @error('tanggal_selesai') is-invalid @enderror" 
+                                <input type="datetime-local" class="form-control" 
                                        id="tanggal_selesai" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}" min="{{ date('Y-m-d\TH:i') }}" required>
                                 <div class="form-text">Waktu alat harus dikembalikan</div>
-                                @error('tanggal_selesai')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
 
