@@ -165,6 +165,7 @@
             left: 20px;
             right: 20px;
             display: flex;
+            flex-direction: column;
             gap: 12px;
             z-index: 998;
         }
@@ -612,23 +613,23 @@
     <!-- Action Buttons -->
     <div class="action-buttons">
         @if(auth()->user()->isSiswa() && $alat->stok > 0 && !$hasPendingBorrowing)
-            <button class="action-btn secondary" onclick="history.back()">
-                <i class="fas fa-arrow-left"></i>
-                Kembali
-            </button>
             <a href="{{ route('peminjaman.create', ['alat_id' => $alat->id]) }}" class="action-btn primary">
                 <i class="fas fa-hand-holding"></i>
                 Pinjam Alat
             </a>
-        @elseif(auth()->user()->isAdmin())
             <button class="action-btn secondary" onclick="history.back()">
                 <i class="fas fa-arrow-left"></i>
                 Kembali
             </button>
+        @elseif(auth()->user()->isAdmin())
             <a href="{{ route('alat.edit', $alat) }}" class="action-btn primary">
                 <i class="fas fa-edit"></i>
                 Edit Alat
             </a>
+            <button class="action-btn secondary" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+                Kembali
+            </button>
         @else
             <button class="action-btn primary" onclick="history.back()" style="flex: 1;">
                 <i class="fas fa-arrow-left"></i>
