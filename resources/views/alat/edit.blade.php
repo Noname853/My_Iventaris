@@ -249,13 +249,13 @@
                             </div>
                         @endif
 
-                        <div class="d-flex justify-content-end gap-2">
-                            <a href="{{ route('alat.show', $alat) }}" class="btn btn-secondary">
-                                <i class="fas fa-times me-2"></i>Batal
-                            </a>
-                            <button type="submit" class="btn btn-primary">
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="ios-btn ios-btn-primary">
                                 <i class="fas fa-save me-2"></i>Simpan Perubahan
                             </button>
+                            <a href="{{ route('alat.show', $alat) }}" class="ios-btn ios-btn-secondary" style="text-align: center;">
+                                <i class="fas fa-times me-2"></i>Batal
+                            </a>
                         </div>
                     </form>
                 </div>
