@@ -487,9 +487,17 @@ class AlatController extends Controller
                 $header = null;
                 $rowIndex = 0;
                 
-                while (($row = fgetcsv($handle, 0, ';')) !== FALSE) {
+                // Detect delimiter
+                $firstLine = fgets($handle);
+                $delimiter = strpos($firstLine, ';') !== false ? ';' : ',';
+                rewind($handle);
+                
+                while (($row = fgetcsv($handle, 0, $delimiter)) !== FALSE) {
                     if ($rowIndex === 0) {
-                        $header = $row;
+                        // Clean BOM from first column header if exists
+                        $row[0] = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $row[0]);
+                        // Normalize headers: lowercase and trim
+                        $header = array_map(function($h) { return strtolower(trim($h)); }, $row);
                         $rowIndex++;
                         continue;
                     }
