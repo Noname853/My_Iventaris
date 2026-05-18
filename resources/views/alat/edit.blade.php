@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.ios16')
 
 @section('title', 'Edit Alat - Inventory TKJ')
 
