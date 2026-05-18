@@ -161,7 +161,7 @@
 
         .action-buttons {
             position: fixed;
-            bottom: 100px;
+            bottom: 30px;
             left: 20px;
             right: 20px;
             display: flex;
@@ -273,8 +273,8 @@
             line-height: 1.4;
         }
 
-        .activity-section {
-            margin-bottom: 120px;
+        #detail-page {
+            padding-bottom: 180px;
         }
 
         /* Modal styles */
