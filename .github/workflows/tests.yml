@@ -5,7 +5,11 @@ on:
     branches:
       - master
       - '*.x'
+    paths-ignore:
+      - 'next-app/**'
   pull_request:
+    paths-ignore:
+      - 'next-app/**'
   schedule:
     - cron: '0 0 * * *'
 
