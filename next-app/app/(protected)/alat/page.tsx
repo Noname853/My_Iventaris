@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { GlassCard } from '@/components/shared/GlassCard'
 import { StockBadge } from '@/components/shared/StockBadge'
 import { formatDate } from '@/lib/utils'
-import { Plus, Search, Package } from 'lucide-react'
+import { Plus, Search, Package, FileSpreadsheet } from 'lucide-react'
 import Link from 'next/link'
 
 interface SearchParams {
@@ -56,13 +56,22 @@ export default async function AlatPage({ searchParams }: { searchParams: Promise
           <p className="text-sm text-neutral-400">{total} alat terdaftar</p>
         </div>
         {isAdmin && (
-          <Link
-            href="/alat/baru"
-            className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
-          >
-            <Plus className="h-4 w-4" />
-            Tambah Alat
-          </Link>
+          <div className="flex gap-2">
+            <Link
+              href="/alat/import"
+              className="flex items-center gap-2 rounded-lg border border-neutral-700 px-4 py-2 text-sm font-semibold text-neutral-300 transition hover:border-neutral-600 hover:text-white"
+            >
+              <FileSpreadsheet className="h-4 w-4" />
+              Import Excel
+            </Link>
+            <Link
+              href="/alat/baru"
+              className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
+            >
+              <Plus className="h-4 w-4" />
+              Tambah Alat
+            </Link>
+          </div>
         )}
       </div>
 
