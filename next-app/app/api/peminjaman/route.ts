@@ -50,6 +50,15 @@ export async function POST(req: NextRequest) {
     const { keperluan, tanggalBatasKembali, catatan, items } = body
     const userId = parseInt(session.user.id)
 
+    if (!Number.isFinite(userId) || userId <= 0) {
+      return NextResponse.json({ error: 'Sesi tidak valid, silakan login ulang' }, { status: 401 })
+    }
+
+    const userExists = await prisma.user.findUnique({ where: { id: userId }, select: { id: true } })
+    if (!userExists) {
+      return NextResponse.json({ error: 'Akun tidak ditemukan, silakan login ulang' }, { status: 401 })
+    }
+
     if (!keperluan || !items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ error: 'Keperluan dan items wajib diisi' }, { status: 400 })
     }
