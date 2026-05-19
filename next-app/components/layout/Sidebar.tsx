@@ -27,9 +27,10 @@ const adminItems = [
 
 interface SidebarProps {
   role?: string
+  onNavigate?: () => void
 }
 
-export function Sidebar({ role }: SidebarProps) {
+export function Sidebar({ role, onNavigate }: SidebarProps) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
 
@@ -58,6 +59,7 @@ export function Sidebar({ role }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onNavigate}
               className={cn(
                 'flex items-center gap-3 px-4 py-2.5 text-sm transition-colors',
                 active

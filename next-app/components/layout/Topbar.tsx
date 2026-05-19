@@ -2,7 +2,7 @@
 
 import { signOut } from 'next-auth/react'
 import { User, ChevronDown, LogOut, Menu } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 
 interface TopbarProps {
@@ -13,19 +13,31 @@ interface TopbarProps {
 
 export function Topbar({ userName, userRole, onMenuToggle }: TopbarProps) {
   const [open, setOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    if (open) document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [open])
 
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-neutral-800 bg-black/80 px-4 backdrop-blur-md">
       <div className="flex items-center gap-3">
-        {onMenuToggle && (
-          <button onClick={onMenuToggle} className="rounded-lg p-1.5 text-neutral-400 hover:text-white md:hidden">
-            <Menu className="h-5 w-5" />
-          </button>
-        )}
+        <button
+          onClick={onMenuToggle}
+          className="rounded-lg p-1.5 text-neutral-400 hover:text-white md:hidden"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
         <span className="gradient-text font-bold md:hidden">iventaris</span>
       </div>
 
-      <div className="relative">
+      <div className="relative" ref={dropdownRef}>
         <button
           onClick={() => setOpen(!open)}
           className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-neutral-300 transition-colors hover:bg-white/[0.05]"
