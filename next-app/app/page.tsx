@@ -145,23 +145,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="mx-auto max-w-3xl px-6 pb-20 text-center">
-        <div className="glass-card p-10">
-          <h2 className="mb-3 text-3xl font-bold text-white">Siap untuk mulai?</h2>
-          <p className="mb-8 text-neutral-400">
-            Masuk sebagai admin dengan <code className="rounded bg-neutral-800 px-1.5 py-0.5 text-sm text-blue-400">admin@tkj.com</code> /
-            <code className="ml-1 rounded bg-neutral-800 px-1.5 py-0.5 text-sm text-blue-400">admin123</code>
-          </p>
-          <Link
-            href="/login"
-            className="inline-flex rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-3 text-base font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
-          >
-            Mulai Sekarang
-          </Link>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="border-t border-neutral-800 py-6 text-center text-sm text-neutral-600">
         <p>Iventaris TKJ — Sistem Inventaris Sekolah Kejuruan</p>
