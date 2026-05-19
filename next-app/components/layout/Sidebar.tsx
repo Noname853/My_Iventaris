@@ -33,22 +33,26 @@ interface SidebarProps {
 export function Sidebar({ role, onNavigate }: SidebarProps) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
+  const isMobile = onNavigate !== undefined
 
   const allItems = role === 'admin' ? [...navItems, ...adminItems] : navItems
 
   return (
     <aside
       className={cn(
-        'relative flex h-full flex-col border-r border-neutral-800 bg-neutral-950 transition-all duration-200',
-        collapsed ? 'w-16' : 'w-56'
+        'relative flex h-full flex-col bg-neutral-950 transition-all duration-200',
+        !isMobile && 'border-r border-neutral-800',
+        isMobile ? 'w-full' : collapsed ? 'w-16' : 'w-56'
       )}
     >
-      {/* Logo */}
-      <div className="flex h-14 items-center border-b border-neutral-800 px-4">
-        {!collapsed && (
-          <span className="gradient-text text-lg font-bold tracking-tight">Iventaris_TKJ</span>
-        )}
-      </div>
+      {/* Logo — hidden in mobile drawer (drawer has its own header) */}
+      {!isMobile && (
+        <div className="flex h-14 items-center border-b border-neutral-800 px-4">
+          {!collapsed && (
+            <span className="gradient-text text-lg font-bold tracking-tight">Iventaris_TKJ</span>
+          )}
+        </div>
+      )}
 
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto py-4">
@@ -66,22 +70,24 @@ export function Sidebar({ role, onNavigate }: SidebarProps) {
                   ? 'bg-white/[0.05] text-white border-l-2 border-blue-500'
                   : 'text-neutral-400 hover:bg-white/[0.03] hover:text-white border-l-2 border-transparent'
               )}
-              title={collapsed ? item.label : undefined}
+              title={collapsed && !isMobile ? item.label : undefined}
             >
               <Icon className="h-4 w-4 shrink-0" />
-              {!collapsed && <span>{item.label}</span>}
+              {(!collapsed || isMobile) && <span>{item.label}</span>}
             </Link>
           )
         })}
       </nav>
 
-      {/* Collapse toggle */}
-      <button
-        onClick={() => setCollapsed(!collapsed)}
-        className="absolute -right-3 top-16 flex h-6 w-6 items-center justify-center rounded-full border border-neutral-700 bg-neutral-900 text-neutral-400 hover:text-white"
-      >
-        {collapsed ? <ChevronRight className="h-3 w-3" /> : <ChevronLeft className="h-3 w-3" />}
-      </button>
+      {/* Collapse toggle — desktop only */}
+      {!isMobile && (
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="absolute -right-3 top-16 flex h-6 w-6 items-center justify-center rounded-full border border-neutral-700 bg-neutral-900 text-neutral-400 hover:text-white"
+        >
+          {collapsed ? <ChevronRight className="h-3 w-3" /> : <ChevronLeft className="h-3 w-3" />}
+        </button>
+      )}
     </aside>
   )
 }
