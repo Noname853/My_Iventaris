@@ -6,7 +6,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-black text-white">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-neutral-800 bg-black/80 px-6 backdrop-blur-md">
-        <span className="gradient-text text-lg font-bold tracking-tight">IVENTARIS</span>
+        <span className="gradient-text text-lg font-bold tracking-tight">Iventaris_TKJ</span>
         <div className="flex items-center gap-3">
           <Link
             href="/login"
@@ -31,13 +31,12 @@ export default function LandingPage() {
 
         <div className="mb-5 inline-flex items-center rounded-full border border-neutral-800 bg-white/[0.03] px-4 py-1.5 text-sm text-neutral-400">
           <span className="mr-2 inline-block h-2 w-2 rounded-full bg-green-400" />
-          Sistem Inventaris Modern untuk SMK TKJ
+          Sistem Inventaris Modern TKJ
         </div>
 
         <h1 className="max-w-3xl text-5xl font-extrabold leading-tight tracking-tight md:text-7xl">
           Kelola Inventaris{' '}
-          <span className="gradient-text">Laboratorium</span>{' '}
-          Sekolah
+          <span className="gradient-text">TKJ</span>{' '}
         </h1>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -78,7 +77,7 @@ export default function LandingPage() {
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             Semua yang kamu butuhkan
           </h2>
-          <p className="mt-3 text-neutral-400">Fitur lengkap untuk pengelolaan inventaris sekolah</p>
+          <p className="mt-3 text-neutral-400">Fitur lengkap untuk pengelolaan inventaris TKJ</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
@@ -121,7 +120,7 @@ export default function LandingPage() {
             {
               icon: Users,
               title: 'Manajemen User',
-              desc: 'Kelola akun siswa dan admin. Reset password, kelompok, dan kelas secara mudah dari satu halaman.',
+              desc: 'Kelola akun siswa. Reset password, kelompok, dan kelas.',
               color: 'text-pink-400',
               bg: 'bg-pink-500/10',
             },
