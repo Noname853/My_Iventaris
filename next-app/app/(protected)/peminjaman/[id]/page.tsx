@@ -29,13 +29,13 @@ export default async function PeminjamanDetailPage({ params }: { params: Promise
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
           <Link href="/peminjaman" className="rounded-lg border border-neutral-800 p-2 text-neutral-400 hover:text-white">
             <ArrowLeft className="h-4 w-4" />
           </Link>
-          <div>
-            <h1 className="text-2xl font-bold text-white">Peminjaman #{peminjaman.id}</h1>
+          <div className="min-w-0">
+            <h1 className="truncate text-xl font-bold text-white sm:text-2xl">Peminjaman #{peminjaman.id}</h1>
             <p className="text-sm text-neutral-400">{formatDate(peminjaman.tanggalPinjam)}</p>
           </div>
         </div>
@@ -72,40 +72,40 @@ export default async function PeminjamanDetailPage({ params }: { params: Promise
               Detail
             </h2>
             <dl className="space-y-3">
-              <div className="flex justify-between">
+              <div className="flex flex-wrap justify-between gap-2">
                 <dt className="text-sm text-neutral-500">Keperluan</dt>
                 <dd className="text-sm text-white">{peminjaman.keperluan}</dd>
               </div>
               {peminjaman.catatan && (
-                <div className="flex justify-between">
+                <div className="flex flex-wrap justify-between gap-2">
                   <dt className="text-sm text-neutral-500">Catatan</dt>
                   <dd className="text-sm text-white">{peminjaman.catatan}</dd>
                 </div>
               )}
-              <div className="flex justify-between">
+              <div className="flex flex-wrap justify-between gap-2">
                 <dt className="text-sm text-neutral-500">Tanggal Pinjam</dt>
                 <dd className="text-sm text-white">{formatDate(peminjaman.tanggalPinjam)}</dd>
               </div>
               {peminjaman.tanggalBatasKembali && (
-                <div className="flex justify-between">
+                <div className="flex flex-wrap justify-between gap-2">
                   <dt className="text-sm text-neutral-500">Batas Kembali</dt>
                   <dd className="text-sm text-white">{formatDate(peminjaman.tanggalBatasKembali)}</dd>
                 </div>
               )}
               {peminjaman.tanggalVerifikasi && (
-                <div className="flex justify-between">
+                <div className="flex flex-wrap justify-between gap-2">
                   <dt className="text-sm text-neutral-500">Diverifikasi</dt>
                   <dd className="text-sm text-white">{formatDateTime(peminjaman.tanggalVerifikasi)}</dd>
                 </div>
               )}
               {peminjaman.tanggalKembali && (
-                <div className="flex justify-between">
+                <div className="flex flex-wrap justify-between gap-2">
                   <dt className="text-sm text-neutral-500">Dikembalikan</dt>
                   <dd className="text-sm text-white">{formatDateTime(peminjaman.tanggalKembali)}</dd>
                 </div>
               )}
               {peminjaman.alasanPembatalan && (
-                <div className="flex justify-between">
+                <div className="flex flex-wrap justify-between gap-2">
                   <dt className="text-sm text-neutral-500">Alasan Batal</dt>
                   <dd className="text-sm text-red-400">{peminjaman.alasanPembatalan}</dd>
                 </div>

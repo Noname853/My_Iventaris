@@ -122,16 +122,16 @@ export default function BuatPeminjamanPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <Link href="/peminjaman" className="rounded-lg border border-neutral-800 p-2 text-neutral-400 hover:text-white">
           <ArrowLeft className="h-4 w-4" />
         </Link>
-        <div>
-          <h1 className="text-2xl font-bold text-white">Buat Peminjaman</h1>
+        <div className="min-w-0 flex-1">
+          <h1 className="text-xl font-bold text-white sm:text-2xl">Buat Peminjaman</h1>
           <p className="text-sm text-neutral-400">Ajukan permintaan peminjaman alat</p>
         </div>
         {statusWaktu && (
-          <div className="ml-auto flex items-center gap-1.5 rounded-lg border border-neutral-800 bg-white/[0.03] px-3 py-1.5 text-xs text-neutral-400">
+          <div className="flex w-full items-center gap-1.5 rounded-lg border border-neutral-800 bg-white/[0.03] px-3 py-1.5 text-xs text-neutral-400 sm:ml-auto sm:w-auto">
             <Clock className="h-3.5 w-3.5" />
             {statusWaktu.hariSekarang}, {statusWaktu.waktuSekarang}
           </div>
@@ -165,17 +165,18 @@ export default function BuatPeminjamanPage() {
                     {/* Alat search */}
                     <div className="relative mb-2">
                       {item.alat ? (
-                        <div className="flex items-center justify-between rounded-lg bg-white/[0.03] px-3 py-2">
-                          <div>
-                            <p className="text-sm font-medium text-white">{item.alat.nama}</p>
+                        <div className="flex items-center justify-between gap-2 rounded-lg bg-white/[0.03] px-3 py-2">
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-sm font-medium text-white">{item.alat.nama}</p>
                             <p className="text-xs text-neutral-500">{item.alat.kode}</p>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex shrink-0 items-center gap-1">
                             <StockBadge stok={item.alat.stok} stokTersedia={item.alat.stokTersedia} />
                             <button
                               type="button"
                               onClick={() => setItems((prev) => prev.map((it, i) => i === idx ? { ...it, alatId: 0, alat: null } : it))}
-                              className="text-neutral-500 hover:text-white"
+                              className="flex h-8 w-8 items-center justify-center rounded-lg text-lg text-neutral-500 hover:bg-white/[0.05] hover:text-white"
+                              aria-label="Hapus pilihan alat"
                             >
                               ×
                             </button>
@@ -194,16 +195,16 @@ export default function BuatPeminjamanPage() {
                             />
                           </div>
                           {searchIdx === idx && searchResults.length > 0 && (
-                            <div className="absolute z-10 mt-1 w-full max-w-md rounded-lg border border-neutral-700 bg-neutral-900 shadow-xl">
+                            <div className="absolute z-20 mt-1 max-h-72 w-full overflow-y-auto rounded-lg border border-neutral-700 bg-neutral-900 shadow-xl">
                               {searchResults.map((a) => (
                                 <button
                                   key={a.id}
                                   type="button"
                                   onClick={() => selectAlat(idx, a)}
-                                  className="flex w-full items-center justify-between px-3 py-2 text-left text-sm transition hover:bg-white/[0.05]"
+                                  className="flex w-full items-center justify-between gap-2 px-3 py-3 text-left text-sm transition hover:bg-white/[0.05]"
                                 >
-                                  <div>
-                                    <p className="text-white">{a.nama}</p>
+                                  <div className="min-w-0 flex-1">
+                                    <p className="truncate text-white">{a.nama}</p>
                                     <p className="text-xs text-neutral-500">{a.kode}</p>
                                   </div>
                                   <StockBadge stok={a.stok} stokTersedia={a.stokTersedia} />
@@ -214,8 +215,8 @@ export default function BuatPeminjamanPage() {
                         </div>
                       )}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-24">
+                    <div className="flex items-end gap-2">
+                      <div className="w-20 sm:w-24">
                         <label className="mb-1 block text-xs text-neutral-500">Jumlah</label>
                         <input
                           type="number"
@@ -226,7 +227,7 @@ export default function BuatPeminjamanPage() {
                           className={inputClass}
                         />
                       </div>
-                      <div className="flex-1">
+                      <div className="min-w-0 flex-1">
                         <label className="mb-1 block text-xs text-neutral-500">Keterangan</label>
                         <input
                           placeholder="Opsional"
@@ -239,7 +240,8 @@ export default function BuatPeminjamanPage() {
                         <button
                           type="button"
                           onClick={() => removeItem(idx)}
-                          className="mt-5 rounded-lg p-2 text-red-400 hover:bg-red-500/10"
+                          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-red-400 hover:bg-red-500/10"
+                          aria-label="Hapus item"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>

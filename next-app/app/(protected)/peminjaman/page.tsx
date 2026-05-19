@@ -55,15 +55,15 @@ export default async function PeminjamanPage({ searchParams }: { searchParams: P
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">Peminjaman</h1>
+          <h1 className="text-xl font-bold text-white sm:text-2xl">Peminjaman</h1>
           <p className="text-sm text-neutral-400">{total} total peminjaman</p>
         </div>
         {!isAdmin && (
           <Link
             href="/peminjaman/baru"
-            className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
+            className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
           >
             <Plus className="h-4 w-4" />
             Buat Peminjaman
@@ -72,25 +72,27 @@ export default async function PeminjamanPage({ searchParams }: { searchParams: P
       </div>
 
       {/* Status tabs */}
-      <div className="flex gap-1 rounded-xl border border-neutral-800 bg-white/[0.02] p-1">
-        {STATUS_TABS.map((tab) => (
-          <Link
-            key={tab.value}
-            href={`/peminjaman${tab.value ? `?status=${tab.value}` : ''}`}
-            className={`rounded-lg px-3 py-1.5 text-sm transition ${
-              status === tab.value
-                ? 'bg-white/[0.08] text-white font-medium'
-                : 'text-neutral-500 hover:text-neutral-300'
-            }`}
-          >
-            {tab.label}
-          </Link>
-        ))}
+      <div className="-mx-4 overflow-x-auto px-4 md:mx-0 md:px-0">
+        <div className="inline-flex gap-1 rounded-xl border border-neutral-800 bg-white/[0.02] p-1">
+          {STATUS_TABS.map((tab) => (
+            <Link
+              key={tab.value}
+              href={`/peminjaman${tab.value ? `?status=${tab.value}` : ''}`}
+              className={`whitespace-nowrap rounded-lg px-3 py-2 text-sm transition ${
+                status === tab.value
+                  ? 'bg-white/[0.08] text-white font-medium'
+                  : 'text-neutral-500 hover:text-neutral-300'
+              }`}
+            >
+              {tab.label}
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* Table */}
-      <GlassCard className="overflow-hidden">
-        <table className="w-full">
+      <GlassCard className="overflow-x-auto">
+        <table className="w-full min-w-[640px]">
           <thead>
             <tr className="border-b border-neutral-800 text-left">
               <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">ID</th>
@@ -145,12 +147,12 @@ export default async function PeminjamanPage({ searchParams }: { searchParams: P
       </GlassCard>
 
       {pages > 1 && (
-        <div className="flex justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
             <Link
               key={p}
               href={`/peminjaman?${new URLSearchParams({ ...(status && { status }), page: String(p) })}`}
-              className={`rounded-lg px-3 py-1.5 text-sm ${
+              className={`min-w-[40px] rounded-lg px-3 py-2 text-center text-sm ${
                 p === page ? 'bg-blue-600 text-white' : 'border border-neutral-700 text-neutral-400 hover:text-white'
               }`}
             >
