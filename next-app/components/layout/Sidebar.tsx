@@ -8,11 +8,9 @@ import {
   PackageCheck,
   Users,
   FileBarChart2,
-  LogOut,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react'
-import { signOut } from 'next-auth/react'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
 
@@ -74,18 +72,6 @@ export function Sidebar({ role }: SidebarProps) {
           )
         })}
       </nav>
-
-      {/* Sign out */}
-      <div className="border-t border-neutral-800 p-2">
-        <button
-          onClick={() => signOut({ callbackUrl: '/login' })}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-neutral-400 transition-colors hover:bg-white/[0.03] hover:text-red-400"
-          title={collapsed ? 'Keluar' : undefined}
-        >
-          <LogOut className="h-4 w-4 shrink-0" />
-          {!collapsed && <span>Keluar</span>}
-        </button>
-      </div>
 
       {/* Collapse toggle */}
       <button
