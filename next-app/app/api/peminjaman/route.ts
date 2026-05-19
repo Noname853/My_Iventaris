@@ -55,6 +55,15 @@ export async function POST(req: NextRequest) {
     }
 
     for (const item of items) {
+      if (!item.alatId || typeof item.alatId !== 'number' || item.alatId <= 0) {
+        return NextResponse.json({ error: 'Alat belum dipilih' }, { status: 400 })
+      }
+      if (!item.jumlah || item.jumlah < 1) {
+        return NextResponse.json({ error: 'Jumlah harus minimal 1' }, { status: 400 })
+      }
+    }
+
+    for (const item of items) {
       const alat = await prisma.alat.findUnique({
         where: { id: item.alatId },
         include: {
@@ -99,7 +108,9 @@ export async function POST(req: NextRequest) {
     })
 
     return NextResponse.json(peminjaman, { status: 201 })
-  } catch {
-    return NextResponse.json({ error: 'Server error' }, { status: 500 })
+  } catch (err) {
+    console.error('[POST /api/peminjaman]', err)
+    const msg = err instanceof Error ? err.message : 'Server error'
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }
