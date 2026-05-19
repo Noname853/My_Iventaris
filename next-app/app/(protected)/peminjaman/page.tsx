@@ -60,13 +60,15 @@ export default async function PeminjamanPage({ searchParams }: { searchParams: P
           <h1 className="text-2xl font-bold text-white">Peminjaman</h1>
           <p className="text-sm text-neutral-400">{total} total peminjaman</p>
         </div>
-        <Link
-          href="/peminjaman/baru"
-          className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
-        >
-          <Plus className="h-4 w-4" />
-          Buat Peminjaman
-        </Link>
+        {!isAdmin && (
+          <Link
+            href="/peminjaman/baru"
+            className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
+          >
+            <Plus className="h-4 w-4" />
+            Buat Peminjaman
+          </Link>
+        )}
       </div>
 
       {/* Status tabs */}
