@@ -1,32 +1,28 @@
-'use client'
-
-import { useState } from 'react'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { signIn } from '@/lib/auth'
+import { AuthError } from 'next-auth'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 
-export default function LoginPage() {
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string; registered?: string }>
+}) {
+  const sp = await searchParams
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-    const formData = new FormData(e.currentTarget)
-
-    const result = await signIn('credentials', {
-      email: formData.get('email'),
-      password: formData.get('password'),
-      redirect: false,
-    })
-
-    if (result?.error) {
-      setError('Email atau password salah')
-      setLoading(false)
-    } else {
-      router.push('/dashboard')
+  async function loginAction(formData: FormData) {
+    'use server'
+    try {
+      await signIn('credentials', {
+        email: formData.get('email') as string,
+        password: formData.get('password') as string,
+        redirectTo: '/dashboard',
+      })
+    } catch (error) {
+      if (error instanceof AuthError) {
+        redirect('/login?error=invalid')
+      }
+      throw error
     }
   }
 
@@ -35,7 +31,13 @@ export default function LoginPage() {
       <h1 className="mb-1 text-2xl font-bold text-white">Masuk</h1>
       <p className="mb-6 text-sm text-neutral-400">Silakan login untuk melanjutkan</p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      {sp.registered && (
+        <p className="mb-4 rounded-lg border border-green-500/20 bg-green-500/10 px-3 py-2 text-sm text-green-400">
+          Akun berhasil dibuat. Silakan login.
+        </p>
+      )}
+
+      <form action={loginAction} className="space-y-4">
         <div>
           <label className="mb-1.5 block text-sm text-neutral-300">Email</label>
           <input
@@ -57,18 +59,17 @@ export default function LoginPage() {
           />
         </div>
 
-        {error && (
+        {sp.error && (
           <p className="rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-sm text-red-400">
-            {error}
+            Email atau password salah
           </p>
         )}
 
         <button
           type="submit"
-          disabled={loading}
-          className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 py-2.5 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500 disabled:opacity-60"
+          className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 py-2.5 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
         >
-          {loading ? 'Memuat...' : 'Masuk'}
+          Masuk
         </button>
       </form>
 

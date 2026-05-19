@@ -1,46 +1,45 @@
-'use client'
-
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
+import { prisma } from '@/lib/prisma'
+import bcrypt from 'bcryptjs'
 import Link from 'next/link'
 
-export default function RegisterPage() {
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+export default async function RegisterPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
+  const sp = await searchParams
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-    const formData = new FormData(e.currentTarget)
+  async function registerAction(formData: FormData) {
+    'use server'
+    const name = (formData.get('name') as string).trim()
+    const email = (formData.get('email') as string).trim().toLowerCase()
+    const password = formData.get('password') as string
+    const kelas = (formData.get('kelas') as string).trim()
 
-    const res = await fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: formData.get('name'),
-        email: formData.get('email'),
-        password: formData.get('password'),
-        kelas: formData.get('kelas'),
-      }),
+    const existing = await prisma.user.findUnique({ where: { email } })
+    if (existing) redirect('/register?error=email-taken')
+
+    const hashed = await bcrypt.hash(password, 10)
+    await prisma.user.create({
+      data: { name, email, password: hashed, kelas: kelas || null, role: 'siswa' },
     })
-
-    const data = await res.json()
-    if (!res.ok) {
-      setError(data.error ?? 'Gagal mendaftar')
-      setLoading(false)
-    } else {
-      router.push('/login?registered=1')
-    }
+    redirect('/login?registered=1')
   }
+
+  const errorMsg =
+    sp.error === 'email-taken'
+      ? 'Email sudah terdaftar'
+      : sp.error
+        ? 'Gagal mendaftar, coba lagi'
+        : null
 
   return (
     <div className="glass-card w-full max-w-sm p-8">
       <h1 className="mb-1 text-2xl font-bold text-white">Daftar</h1>
       <p className="mb-6 text-sm text-neutral-400">Buat akun siswa baru</p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form action={registerAction} className="space-y-4">
         <div>
           <label className="mb-1.5 block text-sm text-neutral-300">Nama Lengkap</label>
           <input
@@ -80,18 +79,17 @@ export default function RegisterPage() {
           />
         </div>
 
-        {error && (
+        {errorMsg && (
           <p className="rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-sm text-red-400">
-            {error}
+            {errorMsg}
           </p>
         )}
 
         <button
           type="submit"
-          disabled={loading}
-          className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 py-2.5 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500 disabled:opacity-60"
+          className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 py-2.5 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
         >
-          {loading ? 'Mendaftar...' : 'Daftar Sekarang'}
+          Daftar Sekarang
         </button>
       </form>
 
