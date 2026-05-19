@@ -1,0 +1,41 @@
+import { auth } from '@/lib/auth'
+import { prisma } from '@/lib/prisma'
+import { NextRequest, NextResponse } from 'next/server'
+import bcrypt from 'bcryptjs'
+
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const session = await auth()
+  if (!session || session.user.role !== 'admin')
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+
+  const { id } = await params
+  try {
+    const body = await req.json()
+    const { name, email, role, kelas, kelompok, password } = body
+
+    const data: Record<string, unknown> = { name, email, role, kelas, kelompok }
+    if (password) data.password = await bcrypt.hash(password, 10)
+
+    const user = await prisma.user.update({
+      where: { id: parseInt(id) },
+      data,
+      select: { id: true, name: true, email: true, role: true, kelas: true },
+    })
+    return NextResponse.json(user)
+  } catch {
+    return NextResponse.json({ error: 'Server error' }, { status: 500 })
+  }
+}
+
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const session = await auth()
+  if (!session || session.user.role !== 'admin')
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+
+  const { id } = await params
+  if (parseInt(id) === parseInt(session.user.id))
+    return NextResponse.json({ error: 'Tidak bisa menghapus akun sendiri' }, { status: 400 })
+
+  await prisma.user.delete({ where: { id: parseInt(id) } })
+  return NextResponse.json({ success: true })
+}
