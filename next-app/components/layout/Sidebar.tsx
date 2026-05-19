@@ -45,7 +45,7 @@ export function Sidebar({ role }: SidebarProps) {
       {/* Logo */}
       <div className="flex h-14 items-center border-b border-neutral-800 px-4">
         {!collapsed && (
-          <span className="gradient-text text-lg font-bold tracking-tight">iventaris</span>
+          <span className="gradient-text text-lg font-bold tracking-tight">Iventaris_TKJ</span>
         )}
       </div>
 
