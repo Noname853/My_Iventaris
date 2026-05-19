@@ -4,8 +4,31 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { GlassCard } from '@/components/shared/GlassCard'
 import { StockBadge } from '@/components/shared/StockBadge'
-import { Plus, Trash2, ArrowLeft, Search } from 'lucide-react'
+import { Plus, Trash2, ArrowLeft, Search, Clock, AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
+
+const JAM_BUKA = 7   // 07:00
+const JAM_TUTUP = 17 // 17:00
+const HARI_OPERASIONAL = [1, 2, 3, 4, 5, 6] // Senin–Sabtu
+
+const NAMA_HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+
+function cekJamOperasional() {
+  const now = new Date()
+  const hari = now.getDay()
+  const jam = now.getHours()
+  const menit = now.getMinutes()
+  const waktuMenit = jam * 60 + menit
+  const boleh =
+    HARI_OPERASIONAL.includes(hari) &&
+    waktuMenit >= JAM_BUKA * 60 &&
+    waktuMenit < JAM_TUTUP * 60
+  return {
+    boleh,
+    waktuSekarang: `${String(jam).padStart(2, '0')}:${String(menit).padStart(2, '0')}`,
+    hariSekarang: NAMA_HARI[hari],
+  }
+}
 
 interface AlatOption {
   id: number
@@ -34,6 +57,13 @@ export default function BuatPeminjamanPage() {
   const [searchResults, setSearchResults] = useState<AlatOption[]>([])
   const [searchIdx, setSearchIdx] = useState<number | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
+  const [statusWaktu, setStatusWaktu] = useState<ReturnType<typeof cekJamOperasional> | null>(null)
+
+  useEffect(() => {
+    setStatusWaktu(cekJamOperasional())
+    const interval = setInterval(() => setStatusWaktu(cekJamOperasional()), 60_000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     if (!searchQuery) { setSearchResults([]); return }
@@ -88,6 +118,8 @@ export default function BuatPeminjamanPage() {
   const inputClass =
     'w-full rounded-lg border border-neutral-700 bg-white/[0.03] px-3 py-2.5 text-sm text-white placeholder-neutral-600 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30'
 
+  const diluarJam = statusWaktu !== null && !statusWaktu.boleh
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
@@ -98,7 +130,28 @@ export default function BuatPeminjamanPage() {
           <h1 className="text-2xl font-bold text-white">Buat Peminjaman</h1>
           <p className="text-sm text-neutral-400">Ajukan permintaan peminjaman alat</p>
         </div>
+        {statusWaktu && (
+          <div className="ml-auto flex items-center gap-1.5 rounded-lg border border-neutral-800 bg-white/[0.03] px-3 py-1.5 text-xs text-neutral-400">
+            <Clock className="h-3.5 w-3.5" />
+            {statusWaktu.hariSekarang}, {statusWaktu.waktuSekarang}
+          </div>
+        )}
       </div>
+
+      {diluarJam && (
+        <div className="flex items-start gap-3 rounded-xl border border-yellow-500/30 bg-yellow-500/10 px-4 py-4">
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-yellow-400" />
+          <div>
+            <p className="text-sm font-semibold text-yellow-300">
+              Pengajuan pinjaman tidak tersedia saat ini
+            </p>
+            <p className="mt-0.5 text-sm text-yellow-400/80">
+              Tolong sesuaikan waktu Hari dan Tanggal saat ini. Pengajuan hanya dapat dilakukan pada{' '}
+              <strong>Senin–Sabtu, 07:00–17:00</strong>.
+            </p>
+          </div>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit}>
         <div className="grid gap-6 lg:grid-cols-3">
@@ -247,10 +300,10 @@ export default function BuatPeminjamanPage() {
 
             <button
               type="submit"
-              disabled={loading}
-              className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 py-2.5 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500 disabled:opacity-60"
+              disabled={loading || diluarJam}
+              className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 py-2.5 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {loading ? 'Mengajukan...' : 'Ajukan Peminjaman'}
+              {loading ? 'Mengajukan...' : diluarJam ? 'Di luar jam operasional' : 'Ajukan Peminjaman'}
             </button>
           </div>
         </div>
