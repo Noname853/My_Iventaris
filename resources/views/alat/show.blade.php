@@ -173,62 +173,6 @@
                 </div>
             </div>
             @endif
-
-            @if(auth()->user()->isSiswa() && $alat->stok > 0)
-                <div class="ios-card mb-4">
-                    <div class="ios-card-header" style="background: var(--ios-green); color: white;">
-                        <h5 class="ios-card-title" style="color: white;"><i class="bi bi-hand-thumbs-up me-2"></i>Pinjam Alat Ini</h5>
-                    </div>
-                    <div class="ios-card-body">
-                        <form action="{{ route('peminjaman.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="alat_id" value="{{ $alat->id }}">
-                            
-                            <div class="mb-3">
-                                <label for="qty" class="form-label fw-medium">Jumlah yang dipinjam <span class="text-danger">*</span></label>
-                                <input type="number" class="ios-form-control @error('qty') is-invalid @enderror" 
-                                       id="qty" name="qty" value="{{ old('qty', 1) }}" 
-                                       min="1" max="{{ $alat->stok }}" required>
-                                @error('qty')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <div class="form-text">Maksimal {{ $alat->stok }} unit</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="tanggal_pinjam" class="form-label fw-medium">Tanggal Pinjam <span class="text-danger">*</span></label>
-                                <input type="date" class="ios-form-control @error('tanggal_pinjam') is-invalid @enderror" 
-                                       id="tanggal_pinjam" name="tanggal_pinjam" 
-                                       value="{{ old('tanggal_pinjam', date('Y-m-d')) }}" required>
-                                @error('tanggal_pinjam')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="keterangan" class="form-label fw-medium">Keterangan</label>
-                                <textarea class="ios-form-control @error('keterangan') is-invalid @enderror" 
-                                          id="keterangan" name="keterangan" rows="3" 
-                                          placeholder="Tujuan peminjaman atau informasi tambahan">{{ old('keterangan') }}</textarea>
-                                @error('keterangan')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="alert" style="background: rgba(255, 149, 0, 0.1); border: 1px solid rgba(255, 149, 0, 0.2); border-radius: 12px; color: var(--ios-orange);">
-                                <i class="bi bi-exclamation-triangle me-2"></i>
-                                <strong>Perhatian:</strong> Peminjaman alat memerlukan verifikasi admin. Pastikan untuk mengembalikan alat tepat waktu.
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="submit" class="ios-btn ios-btn-success" style="padding: 12px;">
-                                    <i class="bi bi-send me-2"></i>Ajukan Peminjaman
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            @endif
         </div>
 
         <div class="col-lg-4">
@@ -422,7 +366,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <img src="{{ asset('storage/' . $alat->foto) }}" alt="Foto {{ $alat->nama }}" class="img-fluid" style="max-height: 70vh;">
+                <img src="{{ asset('storage/' . $alat->foto) }}" 
+     alt="Foto {{ $alat->nama }}" 
+     class="img-fluid" 
+     style="max-height: 70vh;"
+     onerror="this.src=''; this.closest('.modal-body').innerHTML='<div class=\'text-center py-4 text-muted\'><i class=\'bi bi-image fs-1\'></i><p class=\'mt-2\'>Foto tidak dapat ditampilkan.<br>Pastikan storage sudah di-link.</p></div>'">
             </div>
         </div>
     </div>

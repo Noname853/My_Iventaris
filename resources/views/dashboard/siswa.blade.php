@@ -120,17 +120,12 @@
                 </div>
                 <div class="ios-card-body">
                     <div class="row g-3">
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-md-6">
                             <a href="{{ route('alat.index') }}" class="ios-btn ios-btn-primary w-100 justify-content-start">
                                 <i class="bi bi-search me-2"></i>Lihat Alat Tersedia
                             </a>
                         </div>
-                        <div class="col-lg-4 col-md-6">
-                            <a href="{{ route('peminjaman.create') }}" class="ios-btn w-100 justify-content-start" style="background: var(--ios-green); color: white;">
-                                <i class="bi bi-plus-lg me-2"></i>Ajukan Peminjaman
-                            </a>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-md-6">
                             <a href="{{ route('peminjaman.index') }}" class="ios-btn w-100 justify-content-start" style="background: var(--ios-teal); color: white;">
                                 <i class="bi bi-clock-history me-2"></i>Riwayat Peminjaman
                             </a>
@@ -166,7 +161,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($peminjamanAktifList as $peminjaman)
-                                    <tr>
+                                    <tr style="cursor: pointer;" onclick="window.location='{{ route('peminjaman.show', $peminjaman->id) }}'">
                                         <td>
                                             @if($peminjaman->peminjamanDetails->count() == 1)
                                                 {{ $peminjaman->peminjamanDetails->first()->alat->kode }}
@@ -188,13 +183,13 @@
                                                 {{ ucfirst(str_replace('_', ' ', $peminjaman->status)) }}
                                             </span>
                                         </td>
-                                        <td>
+                                        <td onclick="event.stopPropagation();">
                                             <div class="d-flex gap-1">
-                                                <a href="{{ route('peminjaman.show', $peminjaman) }}" class="ios-btn ios-btn-primary" style="font-size: 14px; padding: 6px 12px;">
+                                                <a href="{{ route('peminjaman.show', $peminjaman->id) }}" class="ios-btn ios-btn-primary" style="font-size: 14px; padding: 6px 12px;">
                                                     <i class="bi bi-eye"></i> Detail
                                                 </a>
                                                 @if($peminjaman->status == 'menunggu_verifikasi')
-                                                    <form action="{{ route('peminjaman.destroy', $peminjaman) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin membatalkan peminjaman ini?')">
+                                                    <form action="{{ route('peminjaman.destroy', $peminjaman->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin membatalkan peminjaman ini?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="ios-btn ios-btn-danger" style="font-size: 14px; padding: 6px 12px;">
