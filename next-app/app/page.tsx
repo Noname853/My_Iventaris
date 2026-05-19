@@ -6,7 +6,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-black text-white">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-neutral-800 bg-black/80 px-6 backdrop-blur-md">
-        <span className="gradient-text text-lg font-bold tracking-tight">iventaris</span>
+        <span className="gradient-text text-lg font-bold tracking-tight">IVENTARIS</span>
         <div className="flex items-center gap-3">
           <Link
             href="/login"
@@ -39,11 +39,6 @@ export default function LandingPage() {
           <span className="gradient-text">Laboratorium</span>{' '}
           Sekolah
         </h1>
-
-        <p className="mt-6 max-w-xl text-lg text-neutral-400 md:text-xl">
-          Manajemen alat, peminjaman, dan laporan dalam satu platform. Mudah digunakan oleh admin
-          maupun siswa.
-        </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
