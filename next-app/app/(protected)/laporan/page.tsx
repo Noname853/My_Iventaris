@@ -106,37 +106,39 @@ export default async function LaporanPage({ searchParams }: { searchParams: Prom
 
       {/* Table */}
       <GlassCard className="overflow-hidden">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-neutral-800 text-left">
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">ID</th>
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Peminjam</th>
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Alat</th>
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Tanggal Pinjam</th>
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Tanggal Kembali</th>
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Status</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-neutral-800">
-            {peminjamans.map((p) => (
-              <tr key={p.id} className="transition hover:bg-white/[0.02]">
-                <td className="px-4 py-3 text-neutral-400">#{p.id}</td>
-                <td className="px-4 py-3">
-                  <p className="text-white">{p.user.name}</p>
-                  <p className="text-xs text-neutral-500">{p.user.kelas ?? '-'}</p>
-                </td>
-                <td className="px-4 py-3 text-neutral-300">
-                  {p.details.map((d) => d.alat.nama).join(', ')}
-                </td>
-                <td className="px-4 py-3 text-neutral-400">{formatDate(p.tanggalPinjam)}</td>
-                <td className="px-4 py-3 text-neutral-400">{formatDate(p.tanggalKembali)}</td>
-                <td className="px-4 py-3">
-                  <StatusBadge status={p.status} />
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-max text-sm">
+            <thead>
+              <tr className="border-b border-neutral-800 text-left">
+                <th className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">ID</th>
+                <th className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Peminjam</th>
+                <th className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Alat</th>
+                <th className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Tanggal Pinjam</th>
+                <th className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Tanggal Kembali</th>
+                <th className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-neutral-800">
+              {peminjamans.map((p) => (
+                <tr key={p.id} className="transition hover:bg-white/[0.02]">
+                  <td className="whitespace-nowrap px-4 py-3 text-neutral-400">#{p.id}</td>
+                  <td className="whitespace-nowrap px-4 py-3">
+                    <p className="text-white">{p.user.name}</p>
+                    <p className="text-xs text-neutral-500">{p.user.kelas ?? '-'}</p>
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-3 text-neutral-300">
+                    {p.details.map((d) => d.alat.nama).join(', ')}
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-3 text-neutral-400">{formatDate(p.tanggalPinjam)}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-neutral-400">{formatDate(p.tanggalKembali)}</td>
+                  <td className="whitespace-nowrap px-4 py-3">
+                    <StatusBadge status={p.status} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         {peminjamans.length === 0 && (
           <div className="flex flex-col items-center justify-center py-12 text-neutral-600">
             <FileBarChart2 className="mb-2 h-10 w-10" />
