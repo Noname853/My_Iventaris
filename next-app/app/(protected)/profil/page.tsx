@@ -17,37 +17,39 @@ export default async function ProfilPage() {
   const anggota: string[] = user.anggotaKelompok ? JSON.parse(user.anggotaKelompok) : []
 
   return (
-    <div className="mx-auto max-w-lg space-y-6">
+    <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-white">Profil</h1>
         <p className="text-sm text-neutral-400">Informasi akun dan kelompok kamu</p>
       </div>
 
-      <GlassCard className="p-5">
-        <h2 className="mb-4 text-sm font-semibold text-neutral-300">Informasi Akun</h2>
-        <div className="space-y-3">
-          <div className="flex justify-between text-sm">
-            <span className="text-neutral-500">Nama</span>
-            <span className="text-white">{user.name}</span>
-          </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-neutral-500">Email</span>
-            <span className="text-white">{user.email}</span>
-          </div>
-          {user.kelas && (
+      <div className="grid gap-6 lg:grid-cols-2">
+        <GlassCard className="p-5">
+          <h2 className="mb-4 text-sm font-semibold text-neutral-300">Informasi Akun</h2>
+          <div className="space-y-3">
             <div className="flex justify-between text-sm">
-              <span className="text-neutral-500">Kelas</span>
-              <span className="text-white">{user.kelas}</span>
+              <span className="text-neutral-500">Nama</span>
+              <span className="text-white">{user.name}</span>
             </div>
-          )}
-          <div className="flex justify-between text-sm">
-            <span className="text-neutral-500">Role</span>
-            <span className="text-white capitalize">{user.role}</span>
+            <div className="flex justify-between text-sm">
+              <span className="text-neutral-500">Email</span>
+              <span className="text-white">{user.email}</span>
+            </div>
+            {user.kelas && (
+              <div className="flex justify-between text-sm">
+                <span className="text-neutral-500">Kelas</span>
+                <span className="text-white">{user.kelas}</span>
+              </div>
+            )}
+            <div className="flex justify-between text-sm">
+              <span className="text-neutral-500">Role</span>
+              <span className="text-white capitalize">{user.role}</span>
+            </div>
           </div>
-        </div>
-      </GlassCard>
+        </GlassCard>
 
-      <ProfilForm kelompok={user.kelompok} anggota={anggota} />
+        <ProfilForm kelompok={user.kelompok} anggota={anggota} />
+      </div>
     </div>
   )
 }
