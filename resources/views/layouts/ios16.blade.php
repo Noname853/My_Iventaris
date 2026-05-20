@@ -419,7 +419,8 @@
         .ios-table {
             background: var(--ios-secondary-background);
             border-radius: 16px;
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
             box-shadow: var(--ios-shadow-light);
             border: 0.5px solid var(--ios-gray5);
         }
@@ -427,8 +428,9 @@
         .ios-table table {
             width: 100%;
             margin: 0;
+            min-width: max-content;
         }
-        
+
         .ios-table th {
             background: var(--ios-gray6);
             padding: 16px 20px;
@@ -438,12 +440,14 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             border-bottom: 0.5px solid var(--ios-gray5);
+            white-space: nowrap;
         }
-        
+
         .ios-table td {
             padding: 16px 20px;
             border-bottom: 0.5px solid var(--ios-gray5);
             font-size: 16px;
+            white-space: nowrap;
         }
         
         .ios-table tr:last-child td {
