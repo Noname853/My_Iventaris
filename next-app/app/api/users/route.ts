@@ -10,13 +10,15 @@ export async function GET(req: NextRequest) {
 
   const { searchParams } = req.nextUrl
   const search = searchParams.get('search') ?? ''
+  const showAll = searchParams.get('all') === 'true'
   const page = parseInt(searchParams.get('page') ?? '1')
   const limit = parseInt(searchParams.get('limit') ?? '10')
   const skip = (page - 1) * limit
 
-  const where = search
-    ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] }
-    : {}
+  const where = {
+    ...(showAll ? {} : { isActive: true }),
+    ...(search ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] } : {}),
+  }
 
   const [users, total] = await Promise.all([
     prisma.user.findMany({

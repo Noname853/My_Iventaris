@@ -13,6 +13,7 @@ model User {
   email           String   @unique
   password        String
   role            String   @default("siswa")
+  isActive        Boolean  @default(true) @map("is_active")
   kelas           String?
   kelompok        String?
   anggotaKelompok String?  @map("anggota_kelompok")
