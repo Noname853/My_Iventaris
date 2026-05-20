@@ -40,8 +40,7 @@ export function ProtectedLayoutClient({ children, userName, userRole }: Props) {
           />
           {/* Drawer */}
           <div className="fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-neutral-950 md:hidden">
-            <div className="flex h-14 items-center justify-between border-b border-neutral-800 px-4">
-              <span className="gradient-text text-lg font-bold tracking-tight">Iventaris_TKJ</span>
+            <div className="flex h-14 items-center justify-end border-b border-neutral-800 px-4">
               <button
                 onClick={() => setMobileOpen(false)}
                 className="rounded-lg p-1.5 text-neutral-400 hover:text-white"
