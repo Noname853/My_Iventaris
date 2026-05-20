@@ -37,7 +37,9 @@ export function Sidebar({ role, onNavigate }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false)
   const isMobile = onNavigate !== undefined
 
-  const allItems = role === 'admin' ? [...navItems, ...adminItems] : navItems
+  const allItems = role === 'admin'
+    ? [...navItems.filter(i => i.href !== '/profil'), ...adminItems]
+    : navItems
 
   return (
     <aside

@@ -151,6 +151,9 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
                   <td className="px-4 py-3 text-sm text-neutral-400">{formatDate(u.createdAt)}</td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-3">
+                      <Link href={`/users/${u.id}/detail`} className="text-xs text-neutral-400 hover:text-blue-400">
+                        Detail
+                      </Link>
                       <Link href={`/users/${u.id}/edit`} className="text-xs text-neutral-400 hover:text-white">
                         Edit
                       </Link>
