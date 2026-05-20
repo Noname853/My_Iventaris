@@ -50,7 +50,24 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
         { status: 400 }
       )
 
-    await prisma.user.delete({ where: { id: parseInt(id) } })
+    const userId = parseInt(id)
+
+    await prisma.$transaction(async (tx) => {
+      // Putus referensi verifiedBy / returnedBy / cancelledBy ke user ini
+      await tx.peminjaman.updateMany({ where: { verifiedBy: userId }, data: { verifiedBy: null } })
+      await tx.peminjaman.updateMany({ where: { returnedBy: userId }, data: { returnedBy: null } })
+      await tx.peminjaman.updateMany({ where: { cancelledBy: userId }, data: { cancelledBy: null } })
+
+      // Hapus detail peminjaman milik user ini
+      await tx.peminjamanDetail.deleteMany({ where: { peminjaman: { userId } } })
+
+      // Hapus semua peminjaman milik user ini
+      await tx.peminjaman.deleteMany({ where: { userId } })
+
+      // Baru hapus user
+      await tx.user.delete({ where: { id: userId } })
+    })
+
     return NextResponse.json({ success: true })
   } catch {
     return NextResponse.json({ error: 'Gagal menghapus user' }, { status: 500 })
