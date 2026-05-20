@@ -1,10 +1,9 @@
 'use client'
 
 import { signOut } from 'next-auth/react'
-import { User, ChevronDown, LogOut, Menu, UserCircle } from 'lucide-react'
+import { User, ChevronDown, LogOut, Menu } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { cn } from '@/lib/utils'
-import Link from 'next/link'
 
 interface TopbarProps {
   userName?: string | null
@@ -61,14 +60,6 @@ export function Topbar({ userName, userRole, onMenuToggle }: TopbarProps) {
               <p className="text-sm font-medium text-white">{userName}</p>
               <p className="text-xs text-neutral-500 capitalize">{userRole}</p>
             </div>
-            <Link
-              href="/profil"
-              onClick={() => setOpen(false)}
-              className="flex w-full items-center gap-2 px-3 py-2 text-sm text-neutral-400 transition-colors hover:text-white"
-            >
-              <UserCircle className="h-4 w-4" />
-              Profil &amp; Kelompok
-            </Link>
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
               className="flex w-full items-center gap-2 px-3 py-2 text-sm text-neutral-400 transition-colors hover:text-red-400"
