@@ -6,7 +6,6 @@ import { z } from 'zod'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET ?? 'iventaris-tkj-secret-key-2026-super-secret',
-  trustHost: true,
   providers: [
     Credentials({
       credentials: {
