@@ -45,15 +45,6 @@ export function Sidebar({ role, onNavigate }: SidebarProps) {
         isMobile ? 'w-full' : collapsed ? 'w-16' : 'w-56'
       )}
     >
-      {/* Logo — hidden in mobile drawer (drawer has its own header) */}
-      {!isMobile && (
-        <div className="flex h-14 items-center border-b border-neutral-800 px-4">
-          {!collapsed && (
-            <span className="gradient-text text-lg font-bold tracking-tight">Iventaris_TKJ</span>
-          )}
-        </div>
-      )}
-
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto py-4">
         {allItems.map((item) => {
