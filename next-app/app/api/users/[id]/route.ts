@@ -36,6 +36,23 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
   if (parseInt(id) === parseInt(session.user.id))
     return NextResponse.json({ error: 'Tidak bisa menghapus akun sendiri' }, { status: 400 })
 
-  await prisma.user.delete({ where: { id: parseInt(id) } })
-  return NextResponse.json({ success: true })
+  try {
+    const aktif = await prisma.peminjaman.count({
+      where: {
+        userId: parseInt(id),
+        status: { in: ['menunggu_verifikasi', 'dipinjam'] },
+      },
+    })
+
+    if (aktif > 0)
+      return NextResponse.json(
+        { error: `User masih memiliki ${aktif} peminjaman aktif. Selesaikan atau batalkan dulu sebelum menghapus.` },
+        { status: 400 }
+      )
+
+    await prisma.user.delete({ where: { id: parseInt(id) } })
+    return NextResponse.json({ success: true })
+  } catch {
+    return NextResponse.json({ error: 'Gagal menghapus user' }, { status: 500 })
+  }
 }
