@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     '10.*.*.*',
     '172.*.*.*',
   ],
+  devIndicators: false,
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb',
