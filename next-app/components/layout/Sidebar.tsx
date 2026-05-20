@@ -10,6 +10,7 @@ import {
   FileBarChart2,
   ChevronLeft,
   ChevronRight,
+  UserCircle,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
@@ -18,6 +19,7 @@ const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/alat', label: 'Alat', icon: Wrench },
   { href: '/peminjaman', label: 'Peminjaman', icon: PackageCheck },
+  { href: '/profil', label: 'Profil', icon: UserCircle },
 ]
 
 const adminItems = [

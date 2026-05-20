@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { GlassCard } from '@/components/shared/GlassCard'
 import { StockBadge } from '@/components/shared/StockBadge'
-import { Plus, Trash2, ArrowLeft, Search, Clock, AlertTriangle } from 'lucide-react'
+import { Plus, Trash2, ArrowLeft, Search, Clock, AlertTriangle, Users } from 'lucide-react'
 import Link from 'next/link'
 
 const JAM_BUKA = 7   // 07:00
@@ -46,6 +46,11 @@ interface Item {
   keterangan: string
 }
 
+interface KelompokInfo {
+  kelompok: string | null
+  anggotaKelompok: string[]
+}
+
 export default function BuatPeminjamanPage() {
   const router = useRouter()
   const [items, setItems] = useState<Item[]>([{ alatId: 0, alat: null, jumlah: 1, keterangan: '' }])
@@ -58,11 +63,20 @@ export default function BuatPeminjamanPage() {
   const [searchIdx, setSearchIdx] = useState<number | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [statusWaktu, setStatusWaktu] = useState<ReturnType<typeof cekJamOperasional> | null>(null)
+  const [kelompok, setKelompok] = useState<KelompokInfo | null>(null)
 
   useEffect(() => {
     setStatusWaktu(cekJamOperasional())
     const interval = setInterval(() => setStatusWaktu(cekJamOperasional()), 60_000)
     return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    fetch('/api/profil').then((r) => r.json()).then((d) => {
+      if (d.kelompok || d.anggotaKelompok?.length > 0) {
+        setKelompok({ kelompok: d.kelompok, anggotaKelompok: d.anggotaKelompok ?? [] })
+      }
+    })
   }, [])
 
   useEffect(() => {
@@ -262,6 +276,30 @@ export default function BuatPeminjamanPage() {
           </div>
 
           <div className="space-y-4">
+            {kelompok && (
+              <GlassCard className="p-5">
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-4 w-4 text-blue-400" />
+                    <h2 className="text-sm font-semibold text-neutral-300">Kelompok</h2>
+                  </div>
+                  <Link href="/profil" className="text-xs text-blue-400 hover:text-blue-300">
+                    Edit →
+                  </Link>
+                </div>
+                {kelompok.kelompok && (
+                  <p className="mb-2 text-sm font-medium text-white">{kelompok.kelompok}</p>
+                )}
+                {kelompok.anggotaKelompok.length > 0 && (
+                  <ul className="space-y-1">
+                    {kelompok.anggotaKelompok.map((nama, i) => (
+                      <li key={i} className="text-xs text-neutral-400">• {nama}</li>
+                    ))}
+                  </ul>
+                )}
+              </GlassCard>
+            )}
+
             <GlassCard className="p-5">
               <h2 className="mb-4 text-sm font-semibold text-neutral-300">Informasi Peminjaman</h2>
               <div className="space-y-3">
