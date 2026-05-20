@@ -24,6 +24,7 @@ export default async function UsersPage({ searchParams }: { searchParams: Promis
   const limit = 10
 
   const where = {
+    role: 'siswa',
     ...(showAll ? {} : { isActive: true }),
     ...(search ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] } : {}),
   }
