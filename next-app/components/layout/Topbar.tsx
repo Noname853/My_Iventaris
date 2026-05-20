@@ -34,7 +34,7 @@ export function Topbar({ userName, userRole, onMenuToggle }: TopbarProps) {
         >
           <Menu className="h-5 w-5" />
         </button>
-        <span className="gradient-text font-bold md:hidden">iventaris</span>
+        <span className="gradient-text font-bold md:hidden">Iventaris_TKJ</span>
       </div>
 
       <div className="relative" ref={dropdownRef}>
