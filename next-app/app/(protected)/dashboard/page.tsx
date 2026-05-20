@@ -70,7 +70,7 @@ export default async function DashboardPage() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           <GlassCard className="p-5">
-            <h2 className="mb-4 text-sm font-semibold text-neutral-300">Aktivitas 6 Bulan Terakhir</h2>
+            <h2 className="mb-4 text-sm font-semibold text-neutral-300">Aktivitas 1 Bulan Terakhir</h2>
             <ActivityChart data={chartData} />
           </GlassCard>
 
