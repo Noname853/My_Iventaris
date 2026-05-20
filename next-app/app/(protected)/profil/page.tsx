@@ -25,25 +25,37 @@ export default async function ProfilPage() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <GlassCard className="p-5">
-          <h2 className="mb-4 text-sm font-semibold text-neutral-300">Informasi Akun</h2>
-          <div className="space-y-3">
-            <div className="flex justify-between text-sm">
-              <span className="text-neutral-500">Nama</span>
-              <span className="text-white">{user.name}</span>
+          {/* Header */}
+          <div className="mb-5 flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-lg font-bold text-white">
+              {user.name[0].toUpperCase()}
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-neutral-500">Email</span>
-              <span className="text-white">{user.email}</span>
+            <div>
+              <h2 className="text-sm font-semibold text-white">Informasi Akun</h2>
+              <p className="text-xs text-neutral-500">Detail data diri siswa aktif</p>
             </div>
-            {user.kelas && (
-              <div className="flex justify-between text-sm">
-                <span className="text-neutral-500">Kelas</span>
-                <span className="text-white">{user.kelas}</span>
+          </div>
+
+          {/* Fields */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-lg bg-white/[0.04] p-3">
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-neutral-500">Nama</p>
+              <p className="text-sm font-medium text-white">{user.name}</p>
+            </div>
+            <div className="rounded-lg bg-white/[0.04] p-3">
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-neutral-500">Kelas</p>
+              <p className="text-sm font-medium text-white">{user.kelas ?? '-'}</p>
+            </div>
+            <div className="col-span-2 rounded-lg bg-white/[0.04] p-3">
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-neutral-500">Email</p>
+              <p className="text-sm font-medium text-blue-400">{user.email}</p>
+            </div>
+            <div className="col-span-2 rounded-lg bg-white/[0.04] p-3">
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-neutral-500">Role</p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-medium text-white capitalize">{user.role === 'siswa' ? 'Siswa' : user.role}</p>
+                <span className="h-2.5 w-2.5 rounded-full bg-green-500" />
               </div>
-            )}
-            <div className="flex justify-between text-sm">
-              <span className="text-neutral-500">Role</span>
-              <span className="text-white capitalize">{user.role}</span>
             </div>
           </div>
         </GlassCard>
