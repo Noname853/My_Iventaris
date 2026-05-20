@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Iventaris TKJ — Sistem Inventaris Sekolah',
   description: 'Sistem manajemen inventaris modern untuk laboratorium sekolah kejuruan',
+  icons: [],
 }
 
 export default function RootLayout({
