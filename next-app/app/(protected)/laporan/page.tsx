@@ -56,11 +56,11 @@ export default async function LaporanPage({ searchParams }: { searchParams: Prom
 
       {/* Filters */}
       <GlassCard className="p-4">
-        <form className="flex flex-wrap gap-3">
+        <form className="flex flex-col gap-3">
           <select
             name="status"
             defaultValue={status}
-            className="rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-neutral-300 outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-neutral-300 outline-none focus:border-blue-500"
           >
             <option value="">Semua Status</option>
             <option value="menunggu_verifikasi">Menunggu</option>
@@ -68,21 +68,23 @@ export default async function LaporanPage({ searchParams }: { searchParams: Prom
             <option value="dikembalikan">Dikembalikan</option>
             <option value="dibatalkan">Dibatalkan</option>
           </select>
-          <input
-            name="dari"
-            type="date"
-            defaultValue={sp.dari}
-            className="rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-neutral-300 outline-none focus:border-blue-500"
-          />
-          <input
-            name="sampai"
-            type="date"
-            defaultValue={sp.sampai}
-            className="rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-neutral-300 outline-none focus:border-blue-500"
-          />
+          <div className="grid grid-cols-2 gap-3">
+            <input
+              name="dari"
+              type="date"
+              defaultValue={sp.dari}
+              className="w-full rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-neutral-300 outline-none focus:border-blue-500"
+            />
+            <input
+              name="sampai"
+              type="date"
+              defaultValue={sp.sampai}
+              className="w-full rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-neutral-300 outline-none focus:border-blue-500"
+            />
+          </div>
           <button
             type="submit"
-            className="rounded-lg border border-neutral-700 px-4 py-2 text-sm text-neutral-300 hover:text-white"
+            className="w-full rounded-lg border border-neutral-700 py-2 text-sm text-neutral-300 hover:text-white"
           >
             Filter
           </button>
