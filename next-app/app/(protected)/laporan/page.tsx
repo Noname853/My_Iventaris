@@ -60,7 +60,7 @@ export default async function LaporanPage({ searchParams }: { searchParams: Prom
           <select
             name="status"
             defaultValue={status}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-sm text-neutral-300 outline-none focus:border-blue-500"
+            className="w-full appearance-none rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-center text-sm text-neutral-300 outline-none focus:border-blue-500"
           >
             <option value="">Semua Status</option>
             <option value="menunggu_verifikasi">Menunggu</option>
